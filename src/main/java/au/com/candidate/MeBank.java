@@ -5,6 +5,16 @@ import java.util.*;
 
 public class MeBank
 {
+    public class FoundResult
+    {
+        int amount = 0;
+        int nrOfTransactions = 0;
+
+        public FoundResult(int amount, int nrOfTransactions) {
+            this.amount = amount;
+            this.nrOfTransactions = nrOfTransactions;
+        }
+    }
     Map<String, ArrayList<MeTransaction>> tranactions = new HashMap<String, ArrayList<MeTransaction>>();
     Map<String, HashMap<String, Integer>> reversals = new HashMap<String, HashMap<String, Integer>>();
 
@@ -52,6 +62,31 @@ public class MeBank
         reversalMap.put(txId, amount);
      }
 
+    public FoundResult getRelBalance(String acctNr, LocalDateTime from, LocalDateTime to)
+    {
+        int total = 0;
+        int cnt = 0;
+        ArrayList<MeTransaction> accountTx = tranactions.get(acctNr);
+
+        if (accountTx == null)
+        {
+            return new FoundResult(total, cnt);
+        }
+        HashMap<String, Integer> excludes = reversals.get(acctNr);
+
+        for(MeTransaction txs : accountTx)
+        {
+            if (TickTock.inRange(from, to, txs.createAt))
+            {
+                if (excludes == null || !excludes.containsKey(txs.transactionId))
+                {
+                    total += txs.amount;
+                    cnt++;
+                }
+            }
+        }
+        return new FoundResult(total, cnt);
+    }
     /**
      * Sort the transaction by date-time
      * makes the finding of relevant transaction a lot simpler

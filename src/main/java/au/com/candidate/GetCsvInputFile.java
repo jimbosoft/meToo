@@ -26,16 +26,16 @@ public class GetCsvInputFile {
                 // use comma as separator
                 String[] entry = line.split(cvsSplitBy);
 
-                String txNr = entry[0];
-                String fromAcctNr = entry[1];
-                String toAcctNr = entry[2];
-                String createdAt = entry[3];
-                String amountStr = entry[4];
+                String txNr = entry[0].trim();
+                String fromAcctNr = entry[1].trim();
+                String toAcctNr = entry[2].trim();
+                String createdAt = entry[3].trim();
+                String amountStr = entry[4].trim();
                 String type = entry[5];
 
                 String reverseTxId = "";
                 if (entry.length > 6) {
-                    reverseTxId = entry[6];
+                    reverseTxId = entry[6].trim();
                 }
 
                 int amount = 0;
@@ -54,16 +54,6 @@ public class GetCsvInputFile {
                 if (createTime != null && success)
                 {
                     bank.addTransaction(fromAcctNr, toAcctNr, txNr, createTime, amount, type, reverseTxId);
-//                    if (!reverseTxId.isEmpty())
-//                    {
-//                        bank.addTransaction(toAcctNr, fromAcctNr, txNr, createTime, amount * -1, type, reverseTxId);
-//                        bank.addReversal(fromAcctNr, reverseTxId, amount);
-//                    }
-//                    else
-//                    {
-//                        bank.addTransaction(fromAcctNr, new MeTransaction(toAcctNr, txNr, createTime, amount * -1, type, reverseTxId));
-//                        bank.addTransaction(toAcctNr, new MeTransaction(fromAcctNr, txNr, createTime, amount, type, reverseTxId));
-//                    }
                 }
             }
         } catch (Exception e) {
