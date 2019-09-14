@@ -10,7 +10,7 @@ The createdAt is converted to a LocalTimeDate and the amount will be converted i
 
 ## The main functionality
 
-A input data is passed to the MeBank class which creates a transaction object and puts it into a map of accounts containing list of transactions. If the reverse transaction Id is set, it will be added to a separate map of accounts which contains a map of transaction ids that have been reversed.
+A input data is passed to the MeBank class which creates a transaction object and puts it into a map of accounts containing list of transactions. One transaction is recorded against the outgoing funds account and one is recorded for the incoming funds account. If the reverse transaction Id is set, it will be added to a separate map of accounts which contains a map of transaction ids that have been reversed.
 ### The retrieval
 When an account number, start and end date-times are supplied, MeBank will retrieve the list of transactions and find those in that time-frame. Once the start of the time-frame is found, search will stop when the transactions are past the end of the time-frame, hence shortening the search. Worst case the entire list is traversed.
 
