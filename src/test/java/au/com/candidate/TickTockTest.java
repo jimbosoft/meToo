@@ -52,5 +52,13 @@ public class TickTockTest {
 
         assertTrue(!TickTock.inRange(start, end, input));
     }
+    @Test
+    public void endBeforeStart() {
+        LocalDateTime start = TickTock.convert("20/10/2019 12:47:55");
+        LocalDateTime end = TickTock.convert("21/10/2018 12:47:55");
+        LocalDateTime input = TickTock.convert("21/10/2018 12:47:54");
+
+        assertTrue(!TickTock.inRange(start, end, input));
+    }
 
 }

@@ -16,7 +16,7 @@ public class App
     {
         MeBank bank = new MeBank();
         GetCsvInputFile input = new GetCsvInputFile(bank);
-        System.out.println("Bank detail: " + bank);
+        //System.out.println("Bank detail: " + bank);
 
          for(int i = 0; i < args.length; i++)
         {
@@ -54,12 +54,12 @@ public class App
             {
                 MeBank.FoundResult fr =  bank.getRelBalance(accountNr, from, to);
                 String displayAmount = Integer.toString(fr.amount);
-                if (Math.abs(fr.amount) > 0)
+                if (fr.amount != 0)
                 {
-                    displayAmount = displayAmount.substring(0, displayAmount.length() - 3)
-                            + "." + displayAmount.substring(displayAmount.length() - 3, displayAmount.length() - 1);
+                     displayAmount = displayAmount.substring(0, displayAmount.length() - 2)
+                            + "." + displayAmount.substring(displayAmount.length() - 2, displayAmount.length());
                 }
-                System.out.println("Relative balance for the period is: " + fr.amount);
+                System.out.println("Relative balance for the period is: " + displayAmount);
                 System.out.println("Number of transactions included is: " + fr.nrOfTransactions);
             }
             else

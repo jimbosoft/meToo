@@ -64,6 +64,11 @@ public class MeBank
 
     public FoundResult getRelBalance(String acctNr, LocalDateTime from, LocalDateTime to)
     {
+        if (from.compareTo(to) > 0)
+        {
+            System.out.print("Error: Start time must be before End time, no result returned");
+            return new FoundResult(0, 0);
+        }
         int total = 0;
         int cnt = 0;
         ArrayList<MeTransaction> accountTx = tranactions.get(acctNr);
@@ -74,15 +79,21 @@ public class MeBank
         }
         HashMap<String, Integer> excludes = reversals.get(acctNr);
 
+        boolean startFound = false;
         for(MeTransaction txs : accountTx)
         {
             if (TickTock.inRange(from, to, txs.createAt))
             {
+                startFound = true;
                 if (excludes == null || !excludes.containsKey(txs.transactionId))
                 {
                     total += txs.amount;
                     cnt++;
                 }
+            }
+            else if (startFound) // must have reached the end of the range
+            {
+                break;
             }
         }
         return new FoundResult(total, cnt);
