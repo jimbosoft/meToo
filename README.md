@@ -1,6 +1,6 @@
 
 # Me bank coding exercise
-## Overview:
+## Input data:
 
 The input csv file is assumed to be called meInput.csv and live in the directory the program is run from.
 
@@ -15,7 +15,7 @@ A input data is passed to the MeBank class which creates a transaction object an
 When an account number, start and end date-times are supplied, MeBank will retrieve the list of transactions and find those in that time-frame. Once the start of the time-frame is found, search will stop when the transactions are past the end of the time-frame, hence shortening the search. Worst case the entire list is traversed.
 
 If a transaction is found, the map of reversals is checked and if the transaction id is "not" found in that map, the amount is added to a running total and transaction count is incremented.
-## Where to  it:
+### Where to get it:
 
 Clone or Download source from: [https://github.com/jimbosoft/meToo](https://github.com/jimbosoft/meToo)
 
